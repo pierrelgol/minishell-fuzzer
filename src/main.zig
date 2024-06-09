@@ -138,33 +138,25 @@ pub fn MinishellFuzzer() type {
         }
 
         pub fn parse(self: *Self) bool {
-            std.log.info("Parser start:\n", .{});
             var it = self.args_iter;
             if (it.skip() == false)
                 return (false);
-            std.log.info("Parser skip:\n", .{});
             var arg = it.next() orelse return false;
-            std.log.info("Parser Found =[{s}]\n", .{arg});
             if (std.mem.startsWith(u8, arg, "/")) {
-                std.log.info("[{s}]=Path\n", .{arg});
                 self.*.child_path = @constCast(@ptrCast(arg));
             } else {
-                std.log.info("[{s}]=flag or error\n", .{arg});
                 return (false);
             }
 
             arg = it.next() orelse return putDefaultConfig(self);
-            std.log.info("parse arg = {s}\n", .{arg});
             if (std.mem.eql(u8, arg, "-n")) {
                 const number = it.next() orelse return (false);
-                std.log.info("parse arg = {s}\n", .{arg});
                 self.*.child_cmd_count = std.fmt.parseInt(usize, number, 10) catch 1;
             }
 
             arg = it.next() orelse return putDefaultConfig(self);
             if (std.mem.eql(u8, arg, "-l")) {
                 const number = it.next() orelse return (false);
-                std.log.info("parse arg = {s}\n", .{arg});
                 self.*.child_cmd_length = std.fmt.parseInt(usize, number, 10) catch 5;
             }
             return (true);
@@ -184,7 +176,6 @@ pub fn MinishellFuzzer() type {
         }
 
         pub fn build(self: *Self) !bool {
-            std.log.info("build start\n", .{});
             try self.child_argv.append(self.child_path);
             for (0..self.child_cmd_count) |i| {
                 if (i == 31)
@@ -199,10 +190,8 @@ pub fn MinishellFuzzer() type {
         }
 
         pub fn run(self: Self) !bool {
-            std.log.info("run start\n", .{});
             var child = std.process.Child.init(self.child_argv.items, self.allocator);
             const handle = try child.spawnAndWait();
-            std.log.info("run done\n", .{});
             return (handle.Exited == 0);
         }
 
