@@ -129,6 +129,7 @@ pub fn MinishellFuzzer() type {
         pub fn deinit(self: *Self) void {
             self.*.args_iter.deinit();
             self.*.child_cmd_buffer.deinit();
+            self.*.child_argv.deinit();
         }
 
         pub fn putDefaultConfig(self: *Self) bool {
