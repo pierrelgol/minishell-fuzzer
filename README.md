@@ -14,7 +14,7 @@ This project is still under development. While the core functionality is operati
 
 **Minishell-Fuzzer** is a tool designed for fuzz testing your minishell implementation. Fuzz testing involves providing invalid, unexpected, or random data to a program to uncover errors, vulnerabilities, and crashes.
 
-Minishell-Fuzzer tests the parsing capabilities of your minishell by supplying it with random commands. It's not a comprehensive tester but a tool to enhance your ability to test and debug your implementation. Provide the absolute path to your executable along with a set of options, and `mshfuzz` will launch your minishell and input a series of random commands.
+Minishell-Fuzzer tests the parsing capabilities of your minishell by supplying it with random commands. It's not a comprehensive tester but a tool to enhance your ability to test and debug your implementation. Provide the absolute path to your executable along with a set of options, and `minishell-fuzzer` will launch your minishell and input a series of random commands.
 
 ---
 
